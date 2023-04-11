@@ -29,8 +29,14 @@ func main() {
 	router.PUT("/tasks/:id", updateTask)    // Update a task by ID
 	router.DELETE("/tasks/:id", deleteTask) // Delete a task by ID
 
-	// Start the server on port 8080
-	router.Run(":8080")
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	if err := router.Run(":" + port); err != nil {
+        log.Panicf("error: %s", err)
+	}
 }
 
 // Get all tasks
