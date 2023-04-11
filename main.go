@@ -1,7 +1,9 @@
 package main
 
 import (
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,13 +31,12 @@ func main() {
 	router.PUT("/tasks/:id", updateTask)    // Update a task by ID
 	router.DELETE("/tasks/:id", deleteTask) // Delete a task by ID
 
-
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 	if err := router.Run(":" + port); err != nil {
-        log.Panicf("error: %s", err)
+		log.Panicf("error: %s", err)
 	}
 }
 
